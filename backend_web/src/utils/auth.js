@@ -1,0 +1,3 @@
+
+const TokenKey = 'Admin-Token'
+
