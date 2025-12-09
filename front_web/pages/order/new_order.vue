@@ -130,7 +130,7 @@
 				OpenId:uni.getStorageSync('openId'),
 				navList: [
 					{
-						state: 99,
+						state: 0,
 						text: '买入订单',
 						loadingType: 'more',
 						orderList: [],
@@ -138,7 +138,7 @@
 						total: null,
 					},
 					{
-						state: 0,
+						state: 10,
 						text: '待付款',
 						loadingType: 'more',
 						orderList: [],
@@ -436,11 +436,11 @@
 					// }
 					//买入订单
 					 if (index == 0) {
-						this.req_status(navItem.start, 99, index);
+						this.req_status(navItem.start, 0, index);
 					}
 					// 待付款
 					else if (index == 1) {
-						this.req_status(navItem.start, 0, index);
+						this.req_status(navItem.start,10, index);
 					}
 					//已付款
 					else if (index == 2) {

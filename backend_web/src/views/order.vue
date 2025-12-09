@@ -38,9 +38,10 @@
           </template>
         </el-table-column>
         <el-table-column prop="createTime" label="下单时间" width="180"></el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" width="280">
           <template #default="{row}">
-            <el-button type="success" size="small"@click="handleCom(row)" v-if="row.orderStatus == 0">完结订单</el-button>
+            <el-button type="success" size="small" @click="handleCom(row)" v-if="row.orderStatus == 10 || row.orderStatus == 0">完结订单</el-button>
+            <el-button type="primary" size="small" @click="updatePrice(row)" v-if="row.orderStatus == 0">修改支付价格</el-button>
             <el-button size="small" @click="viewOrder(row)">查看</el-button>
             <el-button
                 size="small"
@@ -160,17 +161,38 @@
         </span>
       </template>
     </el-dialog>
+    <el-dialog title="修改支付价格" :visible.sync="dialogVisibleA" width="400px">
+      <el-form :model="upDateForm" :rules="rules" ref="userForm">
+          <el-form-item label="价格" prop="price">
+            <el-input-number v-model="upDateForm.subPrice" :precision="2" :step="1"></el-input-number>
+          </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="submitUpdatePrice">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { orderDetail, orderList } from '@/api/shop'
+import {orderDetail, orderList, setSubPrice} from '@/api/shop'
 import { makeOrderComplete } from '../api/shop'
 
 export default {
   name: "order",
   data() {
     return {
+      upDateForm: {
+        subPrice: ''
+      },
+      rules: {
+        subPrice: [
+          { required: true, message: '请输入价格', trigger: 'blur' }
+        ],
+      },
+      dialogVisibleA: false,
       searchContent: '',
       searchForm: {
         orderNo: '',
@@ -207,6 +229,23 @@ export default {
     // this.fetchStats();
   },
   methods: {
+    submitUpdatePrice(){
+      this.$refs.userForm.validate(valid => {
+        if(valid){
+          if(!this.upDateForm.subPrice){
+            return this.$message.error('请输入价格')
+          }
+          setSubPrice({...this.upDateForm,id: this.orderId}).then(res => {
+            this.fetchOrders()
+            this.dialogVisibleA = false
+          })
+        }
+      })
+    },
+    updatePrice(row){
+      this.orderId = row.id
+      this.dialogVisibleA = true
+    },
     handleCom(row) {
       this.$confirm('确定要完成商品的交易吗？', '提示', {
         confirmButtonText: '确定',
@@ -303,7 +342,8 @@ export default {
     // 获取状态文本
     getStatusText(status) {
       const statusMap = {
-        0: '待付款',
+        0: '买入订单',
+        10: '待付款',
         100: '已付款',
         200: '交易失败',
       };
@@ -315,7 +355,7 @@ export default {
       const typeMap = {
         pending: 'info',
         0: 'primary',
-        shipped: 'warning',
+        10: 'warning',
         100: 'success',
         200: 'danger'
       };

@@ -81,13 +81,33 @@
           </el-col>
         </el-row>
         <el-form-item label="购买时间" style="display: flex" prop="canBuyEnd">
-          <el-col :span="11">
-            <el-date-picker type="datetime" placeholder="选择时间" format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss" v-model="currentUser.canBuyStart" style="width: 100%;"></el-date-picker>
-          </el-col>
-          <el-col class="line" :span="2">-</el-col>
-          <el-col :span="11">
-            <el-date-picker type="datetime" placeholder="选择时间" format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss" v-model="currentUser.canBuyEnd" style="width: 100%;"></el-date-picker>
-          </el-col>
+<!--          <el-col :span="11">-->
+<!--            <el-date-picker type="datetime" placeholder="选择时间" format="HH:mm:ss" value-format="HH:mm:ss" v-model="currentUser.canBuyStart" style="width: 100%;"></el-date-picker>-->
+<!--          </el-col>-->
+<!--          <el-col class="line" :span="2">-</el-col>-->
+<!--          <el-col :span="11">-->
+<!--            <el-date-picker type="datetime" placeholder="选择时间" format="HH:mm:ss" value-format="HH:mm:ss" v-model="currentUser.canBuyEnd" style="width: 100%;"></el-date-picker>-->
+<!--          </el-col>-->
+          <el-time-select
+            placeholder="起始时间"
+            v-model="currentUser.canBuyStart"
+            :picker-options="{
+              start: '00:00',
+              step: '00:15',
+              end: '23:30'
+            }">
+          </el-time-select>
+          <span style="margin-right: 10px;margin-left: 10px">-</span>
+          <el-time-select
+            placeholder="结束时间"
+            v-model="currentUser.canBuyEnd"
+            :picker-options="{
+              start: '00:00',
+              step: '00:15',
+              end: '23:30',
+              minTime: currentUser.canBuyStart
+              }">
+          </el-time-select>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -146,7 +166,7 @@ export default {
           { required: true, message: '请输入团队名称', trigger: 'blur' }
         ],
         canBuyEnd: [
-          { required: true, message: '请输入选择结束时间', trigger: 'blur' }
+          { required: true, message: '请选择购买时间', trigger: 'blur' }
         ]
       }
     }
@@ -155,20 +175,17 @@ export default {
     this.fetchUsers();
   },
   methods: {
-    formatCurrentTime() {
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = this.padZero(now.getMonth() + 1); // 月份从0开始，需+1
-      const day = this.padZero(now.getDate());
-      const hour = this.padZero(now.getHours());
-      const minute = this.padZero(now.getMinutes());
-      const second = this.padZero(now.getSeconds());
-      this.currentUser.canBuyStart = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
-    },
+    // formatCurrentTime() {
+      // const now = new Date();
+      // const hour = this.padZero(now.getHours());
+      // const minute = this.padZero(now.getMinutes());
+      // const second = this.padZero(now.getSeconds());
+      // this.currentUser.canBuyStart = `${hour}:${minute}:${second}`;
+    // },
     // 补零函数（确保个位数为两位）
-    padZero(num) {
-      return num < 10 ? `0${num}` : num;
-    },
+    // padZero(num) {
+    //   return num < 10 ? `0${num}` : num;
+    // },
     // 获取用户列表
     async fetchUsers() {
       this.loading = true;
@@ -208,7 +225,7 @@ export default {
       this.dialogTitle = '新增用户';
       this.currentUser = { id: null, userMobile: '', realName: '',status: '1',loginPassword:'123456'};
       this.dialogVisible = true;
-      this.formatCurrentTime()
+      // this.formatCurrentTime()
     },
 
     // 编辑用户
@@ -234,9 +251,15 @@ export default {
             if(!myreg.test(this.currentUser.userMobile)){
               return this.$message.error('请输入正确的手机号码');
             }
-            let pp = this.isStartTimeGreaterThanEndTime(this.currentUser.canBuyStart,this.currentUser.canBuyEnd)
-            if(pp){
-              return this.$message.error('开始时间要大于结束时间');
+            // let pp = this.isStartTimeGreaterThanEndTime(this.currentUser.canBuyStart,this.currentUser.canBuyEnd)
+            // if(pp){
+            //   return this.$message.error('开始时间要大于结束时间');
+            // }
+            if(!this.currentUser.canBuyStart){
+              return this.$message.error('请选择购买时间');
+            }
+            if(!this.currentUser.canBuyEnd){
+              return this.$message.error('请选择购买时间');
             }
             saveUser(this.currentUser).then(res => {
               this.dialogVisible = false;

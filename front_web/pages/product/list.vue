@@ -426,8 +426,8 @@ page,
   align-items: center;
   margin: 20rpx 0;
   > img {
-    width: 286rpx;
-    height: 300rpx;
+    width: 142rpx;
+    height: 150rpx;
   }
 }
 .navbar {

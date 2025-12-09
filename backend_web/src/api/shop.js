@@ -60,3 +60,10 @@ export function makeOrderComplete(data) {
     }
   })
 }
+export function setSubPrice(data) {
+  return request({
+    url: 'tob/order/setSubPrice',
+    method: 'post',
+    data: data
+  })
+}
