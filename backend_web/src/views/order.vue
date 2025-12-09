@@ -112,6 +112,12 @@
               <span class="amount">¥{{ currentOrder.actualPrice }}</span>
             </div>
           </el-col>
+          <el-col :span="12" v-if="currentOrder.subPrice">
+            <div class="detail-item">
+              <span class="label">实付金额：</span>
+              <span class="amount">¥{{ currentOrder.subPrice }}</span>
+            </div>
+          </el-col>
         </el-row>
         <div class="product-list">
           <el-row>

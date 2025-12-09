@@ -88,26 +88,25 @@
 <!--          <el-col :span="11">-->
 <!--            <el-date-picker type="datetime" placeholder="选择时间" format="HH:mm:ss" value-format="HH:mm:ss" v-model="currentUser.canBuyEnd" style="width: 100%;"></el-date-picker>-->
 <!--          </el-col>-->
-          <el-time-select
-            placeholder="起始时间"
+          <el-time-picker
+            value-format="HH:mm:ss"
             v-model="currentUser.canBuyStart"
             :picker-options="{
-              start: '00:00',
-              step: '00:15',
-              end: '23:30'
-            }">
-          </el-time-select>
+                selectableRange: '00:00:00 - 23:45:00'
+              }"
+            placeholder="起始时间">
+          </el-time-picker>
           <span style="margin-right: 10px;margin-left: 10px">-</span>
-          <el-time-select
-            placeholder="结束时间"
+          <el-time-picker
+            arrow-control
+            value-format="HH:mm:ss"
             v-model="currentUser.canBuyEnd"
-            :picker-options="{
-              start: '00:00',
-              step: '00:15',
-              end: '23:30',
+                    :picker-options="{
+              selectableRange: '00:00:00 - 23:45:00',
               minTime: currentUser.canBuyStart
-              }">
-          </el-time-select>
+            }"
+            placeholder="结束时间">
+          </el-time-picker>
         </el-form-item>
       </el-form>
       <template #footer>

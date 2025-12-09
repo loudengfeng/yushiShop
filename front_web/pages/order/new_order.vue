@@ -17,7 +17,8 @@
 					<view v-for="(item, index) in tabItem.orderList" :key="index" class="order-item">
 						<view class="i-top b-b">
 							<text class="time">订单编号：{{ item.id }}</text>
-							<text class="state" :style="{ color: item.stateTipColor }" v-if="item.orderStatus == 0">待付款</text>
+							<text class="state" :style="{ color: item.stateTipColor }" v-if="item.orderStatus == 0">买入订单</text>
+							<text class="state" :style="{ color: item.stateTipColor }" v-if="item.orderStatus == 10">待付款</text>
 							<text class="state" :style="{ color: item.stateTipColor }" v-if="item.orderStatus == 100">交易成功</text>
 						<!-- 	<text class="state" :style="{ color: item.stateTipColor }" v-if="item.orderStatus == 3">待收货</text>
 							<text class="state" :style="{ color: item.stateTipColor }" v-if="item.orderStatus == 4">已关闭</text> -->
@@ -73,7 +74,7 @@
 							 
 							<text class="price">{{ item.actualPrice }}</text>
 						</view>
-						<view class="action-box b-t" v-if="item.orderStatus == 0">
+						<view class="action-box b-t" v-if="item.orderStatus == 10">
 							<button class="action-btn" @click.stop="
                   cancelOrder(item.id, cancelnum, tabIndex, index)
                 ">

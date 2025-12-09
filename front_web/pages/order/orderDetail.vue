@@ -86,9 +86,9 @@
         <view class="price-content">
           <text>实付款</text>
           <text class="price-tip">￥</text>
-          <text class="price">{{orderDetail.actualPrice}}</text>
+          <text class="price">{{orderDetail.orderStatus == 100 || orderDetail.orderStatus == 10 ? orderDetail.subPrice : orderDetail.actualPrice}}</text>
         </view>
-        <text class="submit" v-if="orderDetail.orderStatus != 100"
+        <text class="submit" v-if="!(orderDetail.orderStatus == 100 || orderDetail.orderStatus == 0)"
               @click="submit">提交订单</text>
       </view>
       </view>

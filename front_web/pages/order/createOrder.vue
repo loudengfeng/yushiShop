@@ -699,14 +699,15 @@ export default {
         this.$api.msg('请填写地址')
         return
       }
-	  if(this.code == '999999'){
-		  return
-	  }
-	  if(!this.paypzImg){
-		  this.$refs.popup.open();
-	  }else{
-		  this.getorder()
-	  }
+	  // if(this.code == '999999'){
+		 //  return
+	  // }
+	  this.getorder()
+	  // if(!this.paypzImg){
+		 //  this.$refs.popup.open();
+	  // }else{
+		 //  this.getorder()
+	  // }
 
       // if (this.userInfo.Points < this.buyList[chooseTarget].price) {
       // 	return this.$api.msg(this.buyList[chooseTarget].tip)
@@ -740,18 +741,24 @@ export default {
 	getorder(){
 		this.$api.api.createOrder({productId: this.id}).then(res => {
 			if(res.code == '000000'){
-					this.orderNum = res.data.orderId	  
-					this.$api.api.uploadPaymentProof({orderId: this.orderNum,paymentProof: this.paypzImg})
-					if(res.code == '000000'){
-							  this.$api.msg('交易成功')
-							  setTimeout(function () {
-							    uni.switchTab({
-							  	url: `../user/user`,
-							    });
-							  }, 400)	
-					}else{
-							   this.$api.msg(res.msg)
-					}
+				this.$api.msg('提交订单成功')
+						  setTimeout(function () {
+						    uni.switchTab({
+						  	url: `../user/user`,
+						    });
+						  }, 400)
+					// this.orderNum = res.data.orderId	  
+					// this.$api.api.uploadPaymentProof({orderId: this.orderNum,paymentProof: this.paypzImg})
+					// if(res.code == '000000'){
+					// 		  this.$api.msg('交易成功')
+					// 		  setTimeout(function () {
+					// 		    uni.switchTab({
+					// 		  	url: `../user/user`,
+					// 		    });
+					// 		  }, 400)	
+					// }else{
+					// 		   this.$api.msg(res.msg)
+					// }
 			}else{
 				 this.$api.msg(res.msg)
 			}
