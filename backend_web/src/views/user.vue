@@ -10,6 +10,12 @@
           style="width: 300px;"
           clearable
       />
+      <el-input
+        v-model.trim="searchForm.phone"
+        placeholder="请输入手机号"
+        style="width: 300px;margin-left: 10px"
+        clearable
+      />
       <el-button type="primary" @click="searchUsers">搜索</el-button>
       <el-button @click="resetSearch">重置</el-button>
     </div>
@@ -128,7 +134,8 @@ export default {
     return {
       labelPosition: 'right',
       searchForm: {
-        keyword: ''
+        keyword: '',
+        phone: ''
       },
       loading: false,
       userList: [],
@@ -192,7 +199,8 @@ export default {
         const response = await userList({
           page: this.pagination.currentPage,
           pageSize: this.pagination.pageSize,
-          realName: this.searchForm.keyword
+          realName: this.searchForm.keyword,
+          userMobile: this.searchForm.phone
         });
         console.log(response.data)
         this.userList = response.data.records;
@@ -215,6 +223,7 @@ export default {
     // 重置搜索
     resetSearch() {
       this.searchForm.keyword = '';
+      this.searchForm.phone = '';
       this.pagination.currentPage = 1;
       this.fetchUsers();
     },

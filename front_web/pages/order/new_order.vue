@@ -12,7 +12,10 @@
 				<scroll-view class="list-scroll-content" scroll-y @scrolltolower="loadData">
 					<!-- 空白页 -->
 					<empty v-if="tabItem.loaded === true && tabItem.orderList.length === 0"></empty>
-
+					<view class="tip-container" v-if="!(tabItem.loaded === true && tabItem.orderList.length === 0) && tabItem.state == 10">
+					  <text class="tip-label">今日所需转卖的上架费用:</text>
+					  <text class="tip-content">¥{{zmPrice}}</text>
+					</view>	
 					<!-- 订单列表 -->
 					<view v-for="(item, index) in tabItem.orderList" :key="index" class="order-item">
 						<view class="i-top b-b">
@@ -126,6 +129,7 @@
 		},
 		data() {
 			return {
+				zmPrice: 0,
 				cancelnum: 9,
 				tabCurrentIndex: 0,
 				OpenId:uni.getStorageSync('openId'),
@@ -491,6 +495,14 @@
 						this.navList[index].orderList = this.navList[index].orderList.concat(
 							order
 						);
+						if(status == '10'){
+							let zmPriceList = this.navList[index].orderList.map(e => e.actualPrice)
+							let sum = 0;
+							zmPriceList.forEach(num => {
+							  sum += num * 0.015;
+							});
+							this.zmPrice = sum
+						}
 						console.log(this.navList);
 					}
 				});
@@ -670,6 +682,16 @@
 </script>
 
 <style lang="scss">
+	.tip-container {
+	  display: flex;
+	  align-items: center;
+	  padding: 24rpx 32rpx;
+	  background-color: #fff9f9;
+	  border: 2rpx solid #ffebee;
+	  border-radius: 16rpx;
+	  font-size: 128rx;
+	  margin: 32rpx 0;
+	}
 	.color {
 		color: #909399;
 	}

@@ -5,9 +5,15 @@
     <!-- 搜索和筛选区域 -->
     <div class="search-section">
       <el-input
+        v-model.trim="searchForm.name"
+        placeholder="请输入用户名"
+        style="width: 300px;"
+        clearable
+      />
+      <el-input
         v-model.trim="searchForm.keyword"
         placeholder="请输入手机号"
-        style="width: 300px;"
+        style="width: 300px;margin-left: 10px"
         clearable
       />
       <el-button type="primary" @click="searchUsers">搜索</el-button>
@@ -92,7 +98,8 @@
     data() {
       return {
         searchForm: {
-          keyword: ''
+          keyword: '',
+          name: ''
         },
         loading: false,
         userList: [],
@@ -130,7 +137,8 @@
           const response = await userIdentity({
             page: this.pagination.currentPage,
             pageSize: this.pagination.pageSize,
-            mobile: this.searchForm.keyword
+            mobile: this.searchForm.keyword,
+            userName: this.searchForm.name
           });
           console.log(response.data)
           this.userList = response.data.records;
@@ -153,6 +161,7 @@
       // 重置搜索
       resetSearch() {
         this.searchForm.keyword = '';
+        this.searchForm.name = '';
         this.pagination.currentPage = 1;
         this.fetchUsers();
       },

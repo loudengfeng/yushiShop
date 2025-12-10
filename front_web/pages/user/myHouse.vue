@@ -23,10 +23,10 @@
       <img src="/static/no-search.png"></img>
       <view>暂无商品</view>
     </view> -->
-	<view class="tip-container">
+<!-- 	<view class="tip-container">
 	  <text class="tip-label">今日所需转卖的上架费用:</text>
 	  <text class="tip-content">¥{{zmPrice}}</text>
-	</view>
+	</view> -->
 	<view
 	v-if="!goodsList.length"
 	      class="empty">

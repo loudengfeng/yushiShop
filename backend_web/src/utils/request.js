@@ -7,9 +7,12 @@ import {getToken} from "./auth";
 // axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 // 创建axios实例
+//模拟
+// let url = 'http://wmirw.pazmm.com/api/' //正式环境
+let url = 'http://wmirw.pazmm.com:9000/api/' //测试环境
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
-  baseURL: process.env.NODE_ENV == "development" ? 'http://wmirw.pazmm.com/api/' : '/api/',
+  baseURL: process.env.NODE_ENV == "development" ? url : '/api/',
   // 超时
   timeout: 10000
 })

@@ -1,8 +1,8 @@
 module.exports = {
   //系统
   domain: {
-    api: 'http://wmirw.pazmm.com/api/',
-    // 'api': 'http://192.168.110.103:34668/' // 章
+    api: 'http://wmirw.pazmm.com/api/', //正式环境地址
+    // api: 'http://wmirw.pazmm.com:9000/api/' // 测试环境地址
     // 'api': 'http://192.168.110.101:34668/' // 卜hn
     // 'file' : 'https://liuda.nyakarlek.cn/'
     // 'api':'http://192.168.110.104:34668/'

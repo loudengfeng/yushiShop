@@ -24,7 +24,8 @@
           stripe
       >
         <el-table-column prop="id" label="订单号"></el-table-column>
-        <el-table-column prop="userMobile" label="用户"></el-table-column>
+        <el-table-column prop="userRealName" label="用户"></el-table-column>
+        <el-table-column prop="userMobile" label="手机号码"></el-table-column>
         <el-table-column prop="actualPrice" label="单价">
           <template #default="{row}">
             ¥{{ row.actualPrice }}
@@ -69,8 +70,8 @@
       <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="pagination.page"
-          :page-size="pagination.pageSize"
+          :current-page="page.page"
+          :page-size="page.pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="page.total">
       </el-pagination>
@@ -370,12 +371,12 @@ export default {
 
     // 分页相关方法
     handleSizeChange(val) {
-      this.pagination.pageSize = val;
+      this.page.pageSize = val;
       this.fetchOrders();
     },
 
     handleCurrentChange(val) {
-      this.pagination.page = val;
+      this.page.page = val;
       this.fetchOrders();
     }
   }
