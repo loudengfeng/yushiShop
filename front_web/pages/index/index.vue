@@ -26,7 +26,7 @@
       <view class="swiper-dots">
         <text class="num">{{ swiperCurrent + 1 }}</text>
         <text class="sign">/</text>
-        <text class="num">{{ swiperLength }}</text>
+        <text class="num">2</text>
       </view>
     </view>
     <!-- 分类 -->
