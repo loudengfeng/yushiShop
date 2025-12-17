@@ -67,3 +67,11 @@ export function setSubPrice(data) {
     data: data
   })
 }
+
+export function reSaleBatch(data) {
+  return request({
+    url: 'tob/product/reSaleBatch',
+    method: 'post',
+    data: data
+  })
+}

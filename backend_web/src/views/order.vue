@@ -42,7 +42,7 @@
         <el-table-column label="操作" width="280">
           <template #default="{row}">
             <el-button type="success" size="small" @click="handleCom(row)" v-if="row.orderStatus == 10 || row.orderStatus == 0">完结订单</el-button>
-            <el-button type="primary" size="small" @click="updatePrice(row)" v-if="row.orderStatus == 0">修改支付价格</el-button>
+<!--            <el-button type="primary" size="small" @click="updatePrice(row)" v-if="row.orderStatus == 0">修改支付价格</el-button>-->
             <el-button size="small" @click="viewOrder(row)">查看</el-button>
             <el-button
                 size="small"
@@ -349,9 +349,11 @@ export default {
     // 获取状态文本
     getStatusText(status) {
       const statusMap = {
-        0: '买入订单',
         10: '待付款',
         100: '已付款',
+        110: '销售中',
+        120: '待支付"',
+        130: '交易完成',
         200: '交易失败',
       };
       return statusMap[status] || '未知';
@@ -360,13 +362,13 @@ export default {
     // 获取状态标签类型
     getStatusType(status) {
       const typeMap = {
-        pending: 'info',
-        0: 'primary',
-        10: 'warning',
+        10: 'primary',
+        110: 'warning',
         100: 'success',
-        200: 'danger'
+        120: 'danger',
+        130: 'info',
       };
-      return typeMap[status] || 'info';
+      return typeMap[status] || 'danger';
     },
 
     // 分页相关方法

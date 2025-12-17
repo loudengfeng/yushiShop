@@ -3,6 +3,7 @@ import { Notification, MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import errorCode from '@/utils/errorCode'
 import {getToken} from "./auth";
+import router from '../router'
 
 // axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -82,7 +83,8 @@ service.interceptors.response.use(res => {
   error => {
     console.log('err' + error)
     if(error.response.data.code == '401401'){
-      location.href = '/login';
+      // location.href = '/login';
+      router.push('/login')
       return
     }
     let { message } = error;

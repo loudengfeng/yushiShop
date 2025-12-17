@@ -17,6 +17,7 @@
           price: 0,
           subImages: '',
           belongMobile:'',})">新增商品</el-button>
+      <el-button type="danger" @click="zSell()"  icon="el-icon-position">一键转卖</el-button>
     </div>
     <el-table
       ref="multipleTable"
@@ -69,10 +70,10 @@
       </el-table-column>
       <el-table-column label="操作" width="300px">
         <template slot-scope="scope">
-          <el-button
-          v-if="scope.row.status == 3"
-          size="mini"
-          @click="handleView(scope.row)">转卖</el-button>
+<!--          <el-button-->
+<!--          v-if="scope.row.status == 3"-->
+<!--          size="mini"-->
+<!--          @click="handleView(scope.row)">转卖</el-button>-->
 <!--          <el-button-->
 <!--            v-if="scope.row.status == 2"-->
 <!--            size="mini"-->
@@ -163,7 +164,7 @@
 
 <script>
   import {Pagination,Dialog} from "element-ui";
-  import { productList, saveProduct,deleteProduct } from '@/api/shop'
+  import {productList, saveProduct, deleteProduct, reSaleBatch} from '@/api/shop'
   import { saveUser } from '../api/user'
   import { makeOrderComplete, productReSale } from '../api/shop'
   export default {
@@ -216,6 +217,18 @@
       this.getData();
     },
     methods:{
+      zSell(){
+        this.$confirm('此操作将转卖所有已交易完成的商品, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          reSaleBatch({}).then(res => {
+            this.getData();
+            this.$message.success('操作成功');
+          })
+        }).catch(() => {})
+      },
       getStatusText(status) {
         const statusMap = {
           1: '在售',

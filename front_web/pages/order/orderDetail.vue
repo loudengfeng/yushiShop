@@ -62,7 +62,7 @@
           <!-- <li>运费 <span>{{orderDetail.ModeName}}</span></li> -->
           <!-- <li>运费险<span>买家赠送</span></li> -->
           <!-- <li>优惠<span>-￥4.30</span></li> -->
-          <li>实付款 (含运费)<span>￥{{orderDetail.actualPrice}}</span></li>
+          <li>实付款 (含运费)<span>￥{{ orderDetail.reSalePrice || orderDetail.actualPrice}}</span></li>
         </ul>
         <ul>
           <li class="top">订单信息</li>
@@ -86,9 +86,9 @@
         <view class="price-content">
           <text>实付款</text>
           <text class="price-tip">￥</text>
-          <text class="price">{{orderDetail.orderStatus == 100 || orderDetail.orderStatus == 10 ? orderDetail.subPrice : orderDetail.actualPrice}}</text>
+          <text class="price">{{orderDetail.subPrice}}</text>
         </view>
-        <text class="submit" v-if="!(orderDetail.orderStatus == 100 || orderDetail.orderStatus == 0)"
+        <text class="submit" v-if="orderDetail.orderStatus == 10"
               @click="submit">提交订单</text>
       </view>
       </view>
@@ -140,7 +140,12 @@ export default {
     return {
 		paypzImg:'',
 		shopImg: '',
-      orderDetail: '',
+      orderDetail: {
+		  addrSnapshot:{},
+		  product: {
+			  belongUser: {}
+		  }
+	  },
       status: '', //订单状态
       orderId: '',
 	  ProductId:''
@@ -262,6 +267,7 @@ export default {
       }
       let res = await this.$api.api.orderDetail(param)
 	  if(res.code == '000000'){
+		  console.log(res.data)
 		  this.orderDetail = res.data
 	  }else {
 		  this.$api.msg(res.msg)

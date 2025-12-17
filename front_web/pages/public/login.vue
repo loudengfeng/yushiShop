@@ -6,7 +6,7 @@
     <!-- <view class="right-top-sign"></view> -->
     <!-- 设置白色背景防止软键盘把下部绝对定位元素顶上来盖住输入框等 -->
     <view class="wrapper">
-	  	<view style="display: flex;justify-content: center;width: 100%;margin-top: 160upx;margin-bottom: 160upx;"><img src="../../static/newShop/logo.jpg" mode="" class="imgLogo"></img></view>
+	  	<view style="display: flex;justify-content: center;width: 100%;margin-top: 160upx;margin-bottom: 160upx;"><img src="../../static/newShop/logoA.png" mode="" class="imgLogo"></img></view>
       <!--      <view class="welcome">
         欢迎回来！
       </view> -->

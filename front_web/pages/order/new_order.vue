@@ -20,7 +20,7 @@
 					<view v-for="(item, index) in tabItem.orderList" :key="index" class="order-item">
 						<view class="i-top b-b">
 							<text class="time">订单编号：{{ item.id }}</text>
-							<text class="state" :style="{ color: item.stateTipColor }" v-if="item.orderStatus == 0">买入订单</text>
+							<text class="state" :style="{ color: item.stateTipColor }" v-if="item.orderStatus == 10">买入订单</text>
 							<text class="state" :style="{ color: item.stateTipColor }" v-if="item.orderStatus == 10">待付款</text>
 							<text class="state" :style="{ color: item.stateTipColor }" v-if="item.orderStatus == 100">交易成功</text>
 						<!-- 	<text class="state" :style="{ color: item.stateTipColor }" v-if="item.orderStatus == 3">待收货</text>
@@ -75,7 +75,7 @@
 							<!-- 共 -->
 							<!-- <text class="num">{{item.rzOrderDetailDtos.length}}</text> -->
 							 
-							<text class="price">{{ item.actualPrice }}</text>
+							<text class="price">{{ item.reSalePrice || item.actualPrice }}</text>
 						</view>
 						<view class="action-box b-t" v-if="item.orderStatus == 10">
 							<button class="action-btn" @click.stop="
@@ -135,7 +135,7 @@
 				OpenId:uni.getStorageSync('openId'),
 				navList: [
 					{
-						state: 0,
+						state: 10,
 						text: '买入订单',
 						loadingType: 'more',
 						orderList: [],
@@ -441,7 +441,7 @@
 					// }
 					//买入订单
 					 if (index == 0) {
-						this.req_status(navItem.start, 0, index);
+						this.req_status(navItem.start, 10, index);
 					}
 					// 待付款
 					else if (index == 1) {
@@ -496,10 +496,10 @@
 							order
 						);
 						if(status == '10'){
-							let zmPriceList = this.navList[index].orderList.map(e => e.actualPrice)
+							let zmPriceList = this.navList[index].orderList.map(e => e.subPrice)
 							let sum = 0;
 							zmPriceList.forEach(num => {
-							  sum += num * 0.015;
+							  sum += num;
 							});
 							this.zmPrice = sum
 						}

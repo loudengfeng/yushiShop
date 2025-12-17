@@ -138,6 +138,14 @@
 					"bounce": "none"
 				}
 			}
+		},{
+			"path": "pages/order/sell_new_order",
+			"style": {
+				"navigationBarTitleText": "我的商品",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
 		}, {
 			"path": "pages/money/money",
 			"style": {}
