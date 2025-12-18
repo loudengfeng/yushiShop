@@ -91,14 +91,14 @@
 	          <view class="allOrder"></view>
 	        </view>
 	        <view class="order-section">
-	          <view class="order-item"
+	<!--          <view class="order-item"
 	                @click="navTo('/pages/user/myHouse')"
 	                hover-class="common-hover"
 	                :hover-stay-time="50">
 	            <image src="../../static/newShop/wdck.png"
 	                   mode=""></image>
 	            <text>我的仓库</text>
-	          </view>
+	          </view> -->
 	          <view class="order-item"
 	                @click="navTo('/pages/order/new_order?state=0')"
 	                hover-class="common-hover"
@@ -135,14 +135,14 @@
 			  <view class="allOrder"></view>
 			</view>
 			<view class="order-section">
-			  <view class="order-item"
+<!-- 			  <view class="order-item"
 			  @click="navTo('/pages/user/myHouse')"
 			        hover-class="common-hover"
 			        :hover-stay-time="50">
 			    <image src="../../static/newShop/wdck.png"
 			           mode=""></image>
 			    <text>我的仓库</text>
-			  </view>
+			  </view> -->
 			  <view class="order-item"
 			        @click="navTo('/pages/order/sell_new_order?state=0')"
 			        hover-class="common-hover"
