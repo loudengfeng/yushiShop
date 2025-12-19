@@ -78,11 +78,11 @@
 							<text class="price">{{ item.reSalePrice || item.actualPrice }}</text>
 						</view>
 						<view class="action-box b-t" v-if="item.orderStatus == 10">
-							<button class="action-btn" @click.stop="
+	<!-- 						<button class="action-btn" @click.stop="
                   cancelOrder(item.id, cancelnum, tabIndex, index)
                 ">
 								取消订单
-							</button>
+							</button> -->
 							<button class="action-btn recom" @click.stop="jumpDetail(item.id,item.orderStatus)">
 								立即支付
 							</button>
