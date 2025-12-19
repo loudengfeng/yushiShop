@@ -38,7 +38,7 @@
         登录
       </button>
 	  <view style="display: flex;align-items: center;justify-content: center;margin-top: 30upx;">
-		  <checkbox-group @change="changeChecked"><checkbox :checked="checked" value="checked" /></checkbox-group>已阅读并同意<text style="color: #fe5c2d;" @click="navTo('/pages/set/userAgreement')">《付费会员协议》</text>与<text style="color: #fe5c2d;" @click="navTo('/pages/set/privacyPolicy')">《隐私协议》</text></view>
+		  <checkbox-group @change="changeChecked"><checkbox :checked="checked" value="checked" /></checkbox-group>已阅读并同意<text style="color: #fe5c2d;" @click="navTo('/pages/set/userAgreement')">《付费会员协议》</text>与<text style="color: #fe5c2d;" @click="navTo('/pages/set/privacyPolicy')">《用户隐私协议》</text></view>
 <!--      <view class="forget-section"
             @click="forgetPassword">
         忘记密码?
