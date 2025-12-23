@@ -75,3 +75,14 @@ export function reSaleBatch(data) {
     data: data
   })
 }
+
+export function orderCancel(data) {
+  return request({
+    url: 'tob/order/cancel',
+    method: 'post',
+    data: data,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+}

@@ -42,7 +42,7 @@
         <el-table-column label="操作" width="280">
           <template #default="{row}">
             <el-button type="success" size="small" @click="handleCom(row)" v-if="row.orderStatus == 10 || row.orderStatus == 0">完结订单</el-button>
-<!--            <el-button type="primary" size="small" @click="updatePrice(row)" v-if="row.orderStatus == 0">修改支付价格</el-button>-->
+            <el-button type="primary" size="small" @click="changeStatus(row)" v-if="row.orderStatus == 10">取消订单</el-button>
             <el-button size="small" @click="viewOrder(row)">查看</el-button>
             <el-button
                 size="small"
@@ -184,7 +184,7 @@
 </template>
 
 <script>
-import {orderDetail, orderList, setSubPrice} from '@/api/shop'
+import {orderCancel, orderDetail, orderList, setSubPrice} from '@/api/shop'
 import { makeOrderComplete } from '../api/shop'
 
 export default {
@@ -252,6 +252,24 @@ export default {
     updatePrice(row){
       this.orderId = row.id
       this.dialogVisibleA = true
+    },
+    changeStatus(row){
+      this.$confirm('确定要取消改订单？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async() => {
+        try {
+          // 这里应该调用实际的API接口
+          // await this.$api.deleteUser(row.id);
+          orderCancel({ id: row.id }).then(res => {
+            this.$message.success('操作成功');
+            this.fetchOrders();
+          })
+        } catch (error) {
+          console.error(error);
+        }
+      })
     },
     handleCom(row) {
       this.$confirm('确定要完成商品的交易吗？', '提示', {
